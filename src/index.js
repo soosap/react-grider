@@ -4,6 +4,7 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
 import VideoDetail from './components/VideoDetail';
+import _ from 'lodash';
 
 // Youtube API Key
 // "const" means that a variable is not going to be change or reassigned further down the road.
@@ -32,9 +33,13 @@ class App extends Component {
   }
 
 	render() {
+		const videoSearch = _.debounce((term) => {
+			this.videoSearch(term);
+		}, 300);
+
 		return (
 			<div>
-				<SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+				<SearchBar onSearchTermChange={videoSearch} />
 				<VideoDetail video={this.state.selectedVideo} />
         <VideoList
           videos={this.state.videos}
