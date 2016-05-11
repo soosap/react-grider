@@ -8,9 +8,14 @@ class SearchBar extends Component {
 		this.state = { term: 'Starting Value' };
 	}
 
+	onInputChange(term) {
+		this.setState({ term });
+		this.props.onSearchTermChange(term);
+	}
+
 	render() {
 		return (
-			<div>
+			<div className="search-bar">
 				<input
 					// Controlled component:
 					// Whenever setState() is called our component immediately re-renders. So when the render function is called again the value 
@@ -18,7 +23,7 @@ class SearchBar extends Component {
 					// value of the input is visible on the screen. The take-away here is that when a user types something they did not actually 
 					// change the input value - they only triggered an event.
 					value={this.state.term}
-					onChange={(event) => this.setState({ term: event.target.value })} 
+					onChange={event => this.onInputChange(event.target.value)}
 				/>
 			</div>
 		);
